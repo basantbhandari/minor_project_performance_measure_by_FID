@@ -51,6 +51,7 @@ for category in CATEGORIES:
             print("one image flatten type = ", type(new_array))
             print("one image flatten ndim = ", new_array.ndim)
             act1.append(new_array)
+            print("real image appended")
         else:
             img_array = cv2.imread(os.path.join(path, img), cv2.IMREAD_GRAYSCALE)
             print("one image shape = ", img_array.shape)
@@ -63,6 +64,8 @@ for category in CATEGORIES:
             print("one image flatten type = ", type(new_array))
             print("one image flatten ndim = ", new_array.ndim)
             act2.append(new_array)
+            print("fake image appended")
+
 
 act1 = numpy.array(act1)
 act2 = numpy.array(act2)
@@ -75,9 +78,16 @@ act2 = numpy.array(act2)
 # fid between act1 and act1
 fid = calculate_fid(act1, act1)
 print('FID (same): %.3f' % fid)
+
+fid = calculate_fid(act2, act2)
+print('FID (same1): %.3f' % fid)
+
+
 # fid between act1 and act2
 fid = calculate_fid(act1, act2)
 print('FID (different): %.3f' % fid)
 
+fid = calculate_fid(act2, act1)
+print('FID (different) reverse: %.3f' % fid)
 
 
